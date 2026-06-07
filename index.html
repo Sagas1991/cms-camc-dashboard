@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CMS CAMC SYSTEM</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: Cambria, 'Times New Roman', serif;
+  background: #f5f5f5;
+  color: #1a1a1a;
+  font-size: 14px;
+}
+
+/* HEADER */
+.header {
+  background: #2c3e50;
+  color: #fff;
+  padding: 0 28px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid #95a5a6;
+}
+.header-title {
+  font-family: Cambria, serif;
+  font-size: 15px;
+  font-weight: bold;
+  letter-spacing: 0.2px;
+}
+.header-title span { color: #bdc3c7; font-weight: normal; }
+.header-meta {
+  font-family: Cambria, serif;
+  font-size: 12px;
+  color: #95a5a8;
+}
+.btn-book {
+  font-family: Cambria, serif;
+  font-size: 13px;
+  font-weight: bold;
+  background: #fff;
+  color: #2c3e50;
+  border: none;
+  border-radius: 2px;
+  padding: 7px 18px;
+  cursor: pointer;
+  letter-spacing: 0.2px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 32px;
+  white-space: nowrap;
+}
+.btn-book:hover { background: #ecf0f1; }
+
+/* BOOKING NOTICE BANNER */
+.book-banner {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 2px;
+  padding: 14px 20px;
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.book-banner-text {
+  font-family: Cambria, serif;
+  font-size: 13px;
+  color: #555;
+}
+.book-banner-text strong {
+  color: #2c3e50;
+  font-weight: bold;
+}
+.btn-book-lg {
+  font-family: Cambria, serif;
+  font-size: 13px;
+  font-weight: bold;
+  background: #2c3e50;
+  color: #fff;
+  border: none;
+  border-radius: 2px;
+  padding: 8px 22px;
+  cursor: pointer;
+  letter-spacing: 0.2px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  white-space: nowrap;
+}
+.btn-book-lg:hover { background: #34495e; }
+
+.body { padding: 18px 28px; max-width: 1350px; margin: 0 auto; }
+
+/* STAT CARDS */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(5,1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.stat {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 2px;
+  padding: 13px 16px;
+}
+.stat-label {
+  font-family: Cambria, serif;
+  font-size: 10px;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin-bottom: 6px;
+}
+.stat-value {
+  font-family: Cambria, serif;
+  font-size: 28px;
+  font-weight: bold;
+  color: #2c3e50;
+  line-height: 1;
+}
+.stat-sub {
+  font-family: Cambria, serif;
+  font-size: 11px;
+  color: #aaa;
+  margin-top: 4px;
+}
+
+/* SECTION LABEL */
+.section-label {
+  font-family: Cambria, serif;
+  font-size: 11px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #555;
+  margin-bottom: 8px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* CARD */
+.card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 2px;
+  margin-bottom: 18px;
+  overflow: hidden;
+}
+.card-header {
+  padding: 9px 16px;
+  background: #fafafa;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.card-title {
+  font-family: Cambria, serif;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #333;
+}
+.card-count { font-family: Cambria, serif; font-size: 12px; color: #aaa; }
+.card-note  { font-family: Cambria, serif; font-size: 11px; color: #888; font-style: italic; }
+
+/* FILTER ROW */
+.filter-row {
+  display: flex;
+  gap: 8px;
+  padding: 9px 16px;
+  border-bottom: 1px solid #ddd;
+  background: #fafafa;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.filter-row label { font-family: Cambria, serif; font-size: 12px; color: #777; }
+.filter-row input,
+.filter-row select {
+  font-family: Cambria, serif;
+  font-size: 13px;
+  border: 1px solid #ddd;
+  border-radius: 2px;
+  padding: 5px 9px;
+  color: #1a1a1a;
+  background: #fff;
+  outline: none;
+  height: 29px;
+}
+.filter-row input  { width: 175px; }
+.filter-row select { width: 155px; }
+.filter-row input:focus,
+.filter-row select:focus { border-color: #555; }
+.btn-clear {
+  font-family: Cambria, serif;
+  font-size: 12px;
+  background: #2c3e50;
+  color: #fff;
+  border: none;
+  border-radius: 2px;
+  padding: 5px 13px;
+  cursor: pointer;
+  height: 29px;
+}
+.btn-clear:hover { background: #34495e; }
+
+/* TABLE */
+table { width: 100%; border-collapse: collapse; }
+th {
+  font-family: Cambria, serif;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #555;
+  font-weight: bold;
+  padding: 8px 13px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  background: #fafafa;
+  white-space: nowrap;
+}
+td {
+  font-family: Cambria, serif;
+  padding: 8px 13px;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 13px;
+  color: #333;
+  vertical-align: middle;
+}
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: #fafafa; cursor: pointer; }
+
+.tid {
+  font-family: Cambria, serif;
+  font-size: 13px;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+/* BADGES — minimal, text-only feel */
+.badge {
+  font-family: Cambria, serif;
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 2px;
+  font-size: 11px;
+  font-weight: bold;
+  white-space: nowrap;
+  border: 1px solid;
+}
+.badge-booked    { background: #f0f0f0; color: #333; border-color: #ccc; }
+.badge-assigned  { background: #fef9e7; color: #7d6608; border-color: #d4ac0d; }
+.badge-followup  { background: #fdf2f0; color: #7b241c; border-color: #cb4335; }
+.badge-cleared   { background: #eafaf1; color: #1d6a39; border-color: #28b463; }
+.badge-completed { background: #f4f4f4; color: #555; border-color: #aaa; }
+
+/* DETAIL BOX */
+.detail-box {
+  display: none;
+  border-top: 2px solid #2c3e50;
+  padding: 15px;
+  background: #fafafa;
+}
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.df-label {
+  font-family: Cambria, serif;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #aaa;
+  margin-bottom: 3px;
+}
+.df-val {
+  font-family: Cambria, serif;
+  font-size: 13px;
+  color: #1a1a1a;
+  font-weight: bold;
+  word-break: break-word;
+}
+.detail-close {
+  font-family: Cambria, serif;
+  font-size: 12px;
+  color: #888;
+  cursor: pointer;
+  float: right;
+}
+
+/* TIMELINE */
+.timeline { display: flex; }
+.tl-step { flex:1; text-align:center; position:relative; }
+.tl-step:not(:last-child)::after {
+  content:''; position:absolute;
+  top:10px; left:50%;
+  width:100%; height:1px;
+  background:#ddd; z-index:0;
+}
+.tl-step.done:not(:last-child)::after { background:#555; }
+.tl-circle {
+  width:20px; height:20px;
+  border-radius:50%;
+  border:2px solid #ddd;
+  background:#fff;
+  margin:0 auto 5px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:10px; font-family:Cambria,serif;
+  position:relative; z-index:1;
+}
+.tl-step.done   .tl-circle { border-color:#555; background:#eee; color:#333; }
+.tl-step.active .tl-circle { border-color:#2c3e50; background:#e8ecef; color:#2c3e50; }
+.tl-step.pending .tl-circle { border-color:#ddd; color:#ccc; }
+.tl-label { font-family:Cambria,serif; font-size:11px; color:#888; line-height:1.3; }
+.tl-step.done   .tl-label { color:#444; }
+.tl-step.active .tl-label { color:#2c3e50; font-weight:bold; }
+
+/* REPORT */
+.report-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 2px;
+  padding: 18px;
+  margin-bottom: 18px;
+}
+.report-tabs {
+  display: flex;
+  margin-bottom: 18px;
+  border-bottom: 1px solid #ddd;
+}
+.report-tab {
+  font-family: Cambria, serif;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 7px 20px;
+  cursor: pointer;
+  color: #888;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  background: none;
+  border-top: none; border-left: none; border-right: none;
+}
+.report-tab:hover { color: #333; }
+.report-tab.active { color: #2c3e50; border-bottom-color: #2c3e50; }
+
+.report-controls {
+  display: flex;
+  align-items: flex-end;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+.form-group { display:flex; flex-direction:column; gap:4px; }
+.form-group label {
+  font-family: Cambria, serif;
+  font-size: 11px;
+  color: #777;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+.form-group select {
+  font-family: Cambria, serif;
+  font-size: 13px;
+  border: 1px solid #ddd;
+  border-radius: 2px;
+  padding: 5px 10px;
+  color: #1a1a1a;
+  background: #fff;
+  outline: none;
+  height: 32px;
+  min-width: 135px;
+}
+.form-group select:focus { border-color: #555; }
+.btn-download {
+  font-family: Cambria, serif;
+  font-size: 13px;
+  background: #2c3e50;
+  color: #fff;
+  border: none;
+  border-radius: 2px;
+  padding: 6px 18px;
+  cursor: pointer;
+  height: 32px;
+  font-weight: bold;
+}
+.btn-download:hover { background: #34495e; }
+.btn-download.quarterly { background: #555; }
+.btn-download.quarterly:hover { background: #444; }
+
+.quarterly-panel { display: none; }
+.quarterly-panel.active { display: block; }
+.monthly-panel { display: block; }
+.monthly-panel.hidden { display: none; }
+
+.quarter-grid {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.quarter-card {
+  border: 1px solid #ddd;
+  border-radius: 2px;
+  padding: 12px 14px;
+  cursor: pointer;
+  background: #fff;
+  position: relative;
+}
+.quarter-card:hover { border-color: #888; background: #fafafa; }
+.quarter-card.selected { border-color: #2c3e50; background: #f0f2f4; }
+.quarter-card.selected::after {
+  content: '✓';
+  position: absolute;
+  top: 8px; right: 10px;
+  color: #2c3e50;
+  font-size: 13px;
+  font-weight: bold;
+}
+.qc-label  { font-family:Cambria,serif; font-size:13px; font-weight:bold; color:#2c3e50; margin-bottom:2px; }
+.qc-months { font-family:Cambria,serif; font-size:11px; color:#888; margin-bottom:7px; }
+.qc-count  { font-family:Cambria,serif; font-size:20px; font-weight:bold; color:#1a1a1a; }
+.qc-sub    { font-family:Cambria,serif; font-size:10px; color:#aaa; text-transform:uppercase; }
+
+.report-preview { border:1px solid #ddd; border-radius:2px; overflow:hidden; }
+.report-preview-header {
+  background: #fafafa;
+  border-bottom: 1px solid #ddd;
+  padding: 7px 13px;
+  font-family: Cambria, serif;
+  font-size: 11px;
+  color: #777;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: flex;
+  justify-content: space-between;
+}
+.summary-grid { display:grid; grid-template-columns:repeat(4,1fr); }
+.summary-cell {
+  padding: 13px 15px;
+  border-right: 1px solid #f0f0f0;
+  border-bottom: 1px solid #f0f0f0;
+}
+.summary-cell:nth-child(4n) { border-right:none; }
+.summary-cell-label { font-family:Cambria,serif; font-size:10px; color:#aaa; text-transform:uppercase; letter-spacing:0.4px; margin-bottom:4px; }
+.summary-cell-value { font-family:Cambria,serif; font-size:22px; font-weight:bold; color:#2c3e50; }
+
+.no-data { font-family:Cambria,serif; text-align:center; color:#aaa; padding:28px; font-size:13px; }
+
+.footer {
+  font-family: Cambria, serif;
+  text-align: center;
+  padding: 11px;
+  font-size: 11px;
+  color: #aaa;
+  border-top: 1px solid #ddd;
+  background: #fff;
+  margin-top: 4px;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-title">CMS CAMC SYSTEM &nbsp;|&nbsp; <span>BSNL EB Trivandrum BA</span></div>
+  <div style="display:flex;align-items:center;gap:16px;">
+    <div class="header-meta" id="lastUpdated">Loading...</div>
+    <a class="btn-book" href="https://docs.google.com/forms/d/1CH3CFlAEeVurq4sZwIy54Jjf8p0eho2XV-JMUI9HZNk/viewform" target="_blank">&#43; Book a Complaint</a>
+  </div>
+</div>
+
+<div class="body">
+
+  <div class="stats-row">
+    <div class="stat">
+      <div class="stat-label">Total Complaints</div>
+      <div class="stat-value" id="sTotal">0</div>
+      <div class="stat-sub">All time</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Pending</div>
+      <div class="stat-value" id="sPending">0</div>
+      <div class="stat-sub">Booked + Assigned</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Follow-up</div>
+      <div class="stat-value" id="sFollowup">0</div>
+      <div class="stat-sub">Needs re-visit</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Rectified</div>
+      <div class="stat-value" id="sRectified">0</div>
+      <div class="stat-sub" id="sRectPct">0% resolution</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Avg TAT</div>
+      <div class="stat-value" id="sTAT" style="font-size:20px;padding-top:5px;">—</div>
+      <div class="stat-sub">Turnaround time</div>
+    </div>
+  </div>
+
+  <div class="book-banner">
+    <div class="book-banner-text"><strong>Have a fault to report?</strong> &nbsp; Click the button to book a new complaint. The vendor will be notified automatically.</div>
+    <a class="btn-book-lg" href="https://docs.google.com/forms/d/1CH3CFlAEeVurq4sZwIy54Jjf8p0eho2XV-JMUI9HZNk/viewform" target="_blank">&#43;&nbsp; Book a New Complaint</a>
+  </div>
+
+  <div class="section-label">Pending Faults — Active Cases Only</div>
+  <div class="card">
+    <div class="card-header">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="card-title">Pending Complaint Register</div>
+        <div class="card-note">Completed cases excluded</div>
+      </div>
+      <div class="card-count" id="tableCount">0 records</div>
+    </div>
+    <div class="filter-row">
+      <label>Search:</label>
+      <input type="text" id="fSearch" placeholder="Ticket ID / Location..." />
+      <label>Stage:</label>
+      <select id="fStage">
+        <option value="">All Pending Stages</option>
+        <option value="booked">Complaint Booked</option>
+        <option value="assigned">Engineer Assigned</option>
+        <option value="followup">Follow-up Required</option>
+      </select>
+      <label>Component:</label>
+      <select id="fComp"><option value="">All Components</option></select>
+      <label>Location:</label>
+      <select id="fLoc"><option value="">All Locations</option></select>
+      <button class="btn-clear" onclick="clearFilters()">Clear Filters</button>
+    </div>
+    <div style="overflow-x:auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>Ticket ID</th><th>Location</th><th>Component</th>
+            <th>Problem</th><th>Booked On</th><th>Engineer</th>
+            <th>Stage</th><th>Follow-ups</th><th>Days Open</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
+          <tr><td colspan="9" class="no-data">Loading...</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="detail-box" id="detailBox">
+      <span class="detail-close" onclick="closeDetail()">&#10005; Close</span>
+      <div style="font-family:Cambria,serif;font-size:14px;font-weight:bold;color:#1a1a1a;margin-bottom:12px;" id="detailTitle"></div>
+      <div class="detail-grid" id="detailGrid"></div>
+      <div style="font-family:Cambria,serif;font-size:10px;text-transform:uppercase;letter-spacing:0.5px;color:#aaa;margin-bottom:8px;">Complaint Progress</div>
+      <div class="timeline" id="detailTimeline"></div>
+    </div>
+  </div>
+
+  <div class="section-label">Reports — Monthly &amp; Quarterly Download</div>
+  <div class="report-card">
+    <div class="report-tabs">
+      <button class="report-tab active" id="tabMonthly" onclick="switchTab('monthly')">Monthly Report</button>
+      <button class="report-tab" id="tabQuarterly" onclick="switchTab('quarterly')">Quarterly Report</button>
+    </div>
+
+    <div class="monthly-panel" id="monthlyPanel">
+      <div class="report-controls">
+        <div class="form-group">
+          <label>Month</label>
+          <select id="rMonth">
+            <option value="0">January</option><option value="1">February</option>
+            <option value="2">March</option><option value="3">April</option>
+            <option value="4">May</option><option value="5">June</option>
+            <option value="6">July</option><option value="7">August</option>
+            <option value="8">September</option><option value="9">October</option>
+            <option value="10">November</option><option value="11">December</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Year</label><select id="rYear"></select></div>
+        <button class="btn-download" onclick="downloadReport()">Download Monthly Excel</button>
+      </div>
+      <div class="report-preview">
+        <div class="report-preview-header"><span>Monthly Summary Preview</span><span id="previewLabel">—</span></div>
+        <div class="summary-grid">
+          <div class="summary-cell"><div class="summary-cell-label">Total Booked</div><div class="summary-cell-value" id="rTotal">—</div></div>
+          <div class="summary-cell"><div class="summary-cell-label">Rectified</div><div class="summary-cell-value" id="rRectified">—</div></div>
+          <div class="summary-cell"><div class="summary-cell-label">Pending</div><div class="summary-cell-value" id="rPending">—</div></div>
+          <div class="summary-cell"><div class="summary-cell-label">Follow-ups</div><div class="summary-cell-value" id="rFollowup">—</div></div>
+          <div class="summary-cell"><div class="summary-cell-label">Avg TAT</div><div class="summary-cell-value" id="rTAT">—</div></div>
+          <div class="summary-cell"><div class="summary-cell-label">Resolution %</div><div class="summary-cell-value" id="rResPct">—</div></div>
+          <div class="summary-cell"><div class="summary-cell-label">Avg Rating</div><div class="summary-cell-value" id="rRating">—</div></div>
+          <div class="summary-cell"><div class="summary-cell-label">Engineers Used</div><div class="summary-cell-value" id="rEngineers">—</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="quarterly-panel" id="quarterlyPanel">
+      <div class="report-controls">
+        <div class="form-group"><label>Financial Year</label><select id="qYear"></select></div>
+        <button class="btn-download quarterly" onclick="downloadQuarterlyReport()">Download Quarterly Excel</button>
+      </div>
+      <div style="font-family:Cambria,serif;font-size:11px;color:#888;margin-bottom:10px;text-transform:uppercase;letter-spacing:0.4px;">Select Quarter to preview, then download</div>
+      <div class="quarter-grid">
+        <div class="quarter-card selected" id="qcard-1" onclick="selectQuarter(1)">
+          <div class="qc-label">Q1</div><div class="qc-months">April – June</div>
+          <div class="qc-count" id="qcount-1">—</div><div class="qc-sub">complaints</div>
+        </div>
+        <div class="quarter-card" id="qcard-2" onclick="selectQuarter(2)">
+          <div class="qc-label">Q2</div><div class="qc-months">July – September</div>
+          <div class="qc-count" id="qcount-2">—</div><div class="qc-sub">complaints</div>
+        </div>
+        <div class="quarter-card" id="qcard-3" onclick="selectQuarter(3)">
+          <div class="qc-label">Q3</div><div class="qc-months">October – December</div>
+          <div class="qc-count" id="qcount-3">—</div><div class="qc-sub">complaints</div>
+        </div>
+        <div class="quarter-card" id="qcard-4" onclick="selectQuarter(4)">
+          <div class="qc-label">Q4</div><div class="qc-months">January – March</div>
+          <div class="qc-count" id="qcount-4">—</div><div class="qc-sub">complaints</div>
+        </div>
+      </div>
+      <div class="report-preview">
+        <div class="report-preview-header"><span>Quarterly Summary Preview</span><span id="qPreviewLabel">—</span></div>
+        <div class="summary-grid">
+          <div class="summary-cell"><div class="summary-cell-label">Total Booked</div><div class="summary-cell-value" id="qrTotal">—</div></div>
+          <div class="summary-cell"><div class="summary-cell-label">Rectified</div><div class="summary-cell-value" id="qrRectified">—</div></div>
+          <div class="summary-cell"><div class="summary-cell-label">Pending</div><div class="summary-cell-value" id="qrPending">—</div></div>
+          <div class="summary-cell"><div class="summary-cell-label">Follow-ups</div><div class="summary-cell-value" id="qrFollowup">—</div></div>
+          <div class="summary-cell"><div class="summary-cell-label">Avg TAT</div><div class="summary-cell-value" id="qrTAT">—</div></div>
+          <div class="summary-cell"><div class="summary-cell-label">Resolution %</div><div class="summary-cell-value" id="qrResPct">—</div></div>
+          <div class="summary-cell"><div class="summary-cell-label">Avg Rating</div><div class="summary-cell-value" id="qrRating">—</div></div>
+          <div class="summary-cell"><div class="summary-cell-label">Engineers Used</div><div class="summary-cell-value" id="qrEngineers">—</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  CMS CAMC SYSTEM &nbsp;|&nbsp; BSNL EB Trivandrum BA &nbsp;|&nbsp; Complaint Management & Annual Maintenance Contract &nbsp;|&nbsp; Auto-refreshes every 5 minutes
+</div>
+
+<script>
+var SHEET_ID = '1nQ8RR9uk3q_uX6V3MQ91qzIV2xIGybocA1RlfYcSPvk';
+var API = 'https://docs.google.com/spreadsheets/d/'+SHEET_ID+'/gviz/tq?tqx=out:json&sheet=MASTER';
+var C={TID:0,BTIME:1,LOC:2,COMP:3,PROB:4,SL:5,CPHONE:6,CEMAIL:7,ATIME:8,ENG:9,VDATE:10,VTIME:11,CLTIME:12,ASSETS:13,ISSUES:14,REMARKS:15,STATUS:16,RTIME:17,ORATING:18,RRATING:19,EBEHAV:20,FRESOLVED:21,FEEDBACK:22,STAGE:23,CCTIME:24,TAT:25,FCOUNT:26};
+var MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+var QUARTERS={1:{label:'Q1',months:[3,4,5],name:'April – June'},2:{label:'Q2',months:[6,7,8],name:'July – September'},3:{label:'Q3',months:[9,10,11],name:'October – December'},4:{label:'Q4',months:[0,1,2],name:'January – March'}};
+var allRows=[],selectedQuarter=1;
+
+(function(){
+  var sel=document.getElementById('rYear'),qSel=document.getElementById('qYear'),yr=new Date().getFullYear();
+  for(var y=yr;y>=yr-3;y--){
+    var o1=document.createElement('option');o1.value=y;o1.textContent=y;sel.appendChild(o1);
+    var o2=document.createElement('option');o2.value=y;o2.textContent='FY '+y+'-'+String(y+1).slice(2);qSel.appendChild(o2);
+  }
+  document.getElementById('rMonth').value=new Date().getMonth();
+  var now=new Date();qSel.value=now.getMonth()>=3?now.getFullYear():now.getFullYear()-1;
+})();
+
+function switchTab(tab){
+  document.getElementById('tabMonthly').classList.toggle('active',tab==='monthly');
+  document.getElementById('tabQuarterly').classList.toggle('active',tab==='quarterly');
+  document.getElementById('monthlyPanel').classList.toggle('hidden',tab!=='monthly');
+  document.getElementById('quarterlyPanel').classList.toggle('active',tab==='quarterly');
+  if(tab==='quarterly')updateQuarterlyPreview();
+}
+
+function stageKey(row){
+  var s=(row[C.STAGE]||'').toLowerCase();
+  if(s.indexOf('completed')>-1)return'completed';
+  if(s.indexOf('cleared')>-1)return'cleared';
+  if(s.indexOf('follow')>-1)return'followup';
+  if(s.indexOf('engineer')>-1)return'assigned';
+  return'booked';
+}
+function isPending(row){var k=stageKey(row);return k==='booked'||k==='assigned'||k==='followup';}
+function stageBadge(k){
+  var m={booked:['badge-booked','Complaint Booked'],assigned:['badge-assigned','Engineer Assigned'],followup:['badge-followup','Follow-up Required'],cleared:['badge-cleared','Cleared'],completed:['badge-completed','Completed']};
+  var p=m[k]||['badge-booked',k];
+  return'<span class="badge '+p[0]+'">'+p[1]+'</span>';
+}
+function v(x){return x?x.toString().trim():'—';}
+function fmtDate(raw){
+  if(!raw)return'—';var d=new Date(raw);
+  if(isNaN(d))return raw.toString().substring(0,10);
+  return d.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'});
+}
+function daysOpen(bt){
+  if(!bt)return'—';var d=new Date(bt);if(isNaN(d))return'—';
+  var diff=Math.floor((new Date()-d)/(1000*60*60*24));
+  return diff===0?'Today':diff+' day'+(diff===1?'':'s');
+}
+function tatToMins(t){
+  if(!t||t.toString().indexOf('hrs')<0)return null;
+  var h=parseInt(t)||0,m=parseInt((t.toString().match(/(\d+)\s*min/)||[0,0])[1])||0;
+  return h*60+m;
+}
+function avgTatStr(rows){
+  var vals=rows.map(function(r){return tatToMins(r[C.TAT]);}).filter(function(v){return v!==null;});
+  if(!vals.length)return'—';
+  var avg=Math.round(vals.reduce(function(a,b){return a+b;},0)/vals.length);
+  return Math.floor(avg/60)+'h '+String(avg%60).padStart(2,'0')+'m';
+}
+
+function load(){
+  fetch(API)
+    .then(function(r){return r.text();})
+    .then(function(t){
+      var j=JSON.parse(t.replace('/*O_o*/\ngoogle.visualization.Query.setResponse(','').replace(');',''));
+      allRows=(j.table.rows||[]).slice(1)
+        .map(function(r){return r.c.map(function(c){return c?(c.v!==null&&c.v!==undefined?c.v:(c.f||'')):''});})
+        .filter(function(r){var t=r[C.TID]?r[C.TID].toString().trim():'';return t&&t!=='Ticket ID';});
+      init();
+      document.getElementById('lastUpdated').textContent='Last updated: '+new Date().toLocaleTimeString('en-IN');
+    })
+    .catch(function(){
+      document.getElementById('lastUpdated').textContent='Error loading data — ensure MASTER sheet is shared publicly';
+      document.getElementById('tableBody').innerHTML='<tr><td colspan="9" class="no-data">Could not load data. Open this file via a web server or GitHub Pages — not directly from your computer.</td></tr>';
+    });
+}
+
+function init(){populateFilters();renderStats();renderTable(getPendingFiltered());updateReportPreview();updateQuarterCards();}
+
+function populateFilters(){
+  var pending=allRows.filter(isPending),comps={},locs={};
+  pending.forEach(function(r){if(r[C.COMP])comps[r[C.COMP].toString().trim()]=1;if(r[C.LOC])locs[r[C.LOC].toString().trim()]=1;});
+  var cSel=document.getElementById('fComp');cSel.innerHTML='<option value="">All Components</option>';
+  Object.keys(comps).sort().forEach(function(c){var o=document.createElement('option');o.value=c;o.textContent=c;cSel.appendChild(o);});
+  var lSel=document.getElementById('fLoc');lSel.innerHTML='<option value="">All Locations</option>';
+  Object.keys(locs).sort().forEach(function(l){var o=document.createElement('option');o.value=l;o.textContent=l.length>40?l.slice(0,40)+'…':l;lSel.appendChild(o);});
+}
+
+function renderStats(){
+  var total=allRows.length,pending=allRows.filter(function(r){return isPending(r);}).length,
+      followup=allRows.filter(function(r){return stageKey(r)==='followup';}).length,
+      rectified=allRows.filter(function(r){return(r[C.STATUS]||'').toLowerCase().indexOf('rectified')>-1;}).length;
+  document.getElementById('sTotal').textContent=total;
+  document.getElementById('sPending').textContent=pending;
+  document.getElementById('sFollowup').textContent=followup;
+  document.getElementById('sRectified').textContent=rectified;
+  document.getElementById('sRectPct').textContent=total?Math.round(rectified/total*100)+'% resolution':'0%';
+  document.getElementById('sTAT').textContent=avgTatStr(allRows);
+}
+
+function getPendingFiltered(){
+  var q=document.getElementById('fSearch').value.trim().toLowerCase(),
+      stage=document.getElementById('fStage').value,
+      comp=document.getElementById('fComp').value,
+      loc=document.getElementById('fLoc').value;
+  return allRows.filter(function(r){
+    if(!isPending(r))return false;
+    if(q&&(r[C.TID]||'').toString().toLowerCase().indexOf(q)<0&&(r[C.LOC]||'').toString().toLowerCase().indexOf(q)<0&&(r[C.PROB]||'').toString().toLowerCase().indexOf(q)<0)return false;
+    if(stage&&stageKey(r)!==stage)return false;
+    if(comp&&(r[C.COMP]||'').toString().trim()!==comp)return false;
+    if(loc&&(r[C.LOC]||'').toString().trim()!==loc)return false;
+    return true;
+  });
+}
+
+function renderTable(rows){
+  document.getElementById('tableCount').textContent=rows.length+' record'+(rows.length===1?'':'s');
+  var tbody=document.getElementById('tableBody');
+  if(!rows.length){tbody.innerHTML='<tr><td colspan="9" class="no-data">No pending complaints. All cases are resolved.</td></tr>';return;}
+  tbody.innerHTML=rows.map(function(r){
+    var prob=(r[C.PROB]||'').toString();if(prob.length>35)prob=prob.slice(0,35)+'…';
+    var fc=parseInt(r[C.FCOUNT])||0;
+    var fcStr=fc>0?'<span style="color:#7b241c;font-weight:bold">'+fc+'</span>':'<span style="color:#ccc">0</span>';
+    return'<tr onclick="showDetail(\''+r[C.TID]+'\')">'+
+      '<td><span class="tid">'+v(r[C.TID])+'</span></td>'+
+      '<td style="max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="'+(r[C.LOC]||'')+'">'+v(r[C.LOC])+'</td>'+
+      '<td>'+v(r[C.COMP])+'</td>'+
+      '<td style="max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="'+(r[C.PROB]||'')+'">'+prob+'</td>'+
+      '<td style="white-space:nowrap">'+fmtDate(r[C.BTIME])+'</td>'+
+      '<td>'+(r[C.ENG]||'<span style="color:#ccc">Not assigned</span>')+'</td>'+
+      '<td>'+stageBadge(stageKey(r))+'</td>'+
+      '<td style="text-align:center">'+fcStr+'</td>'+
+      '<td style="white-space:nowrap">'+daysOpen(r[C.BTIME])+'</td>'+
+    '</tr>';
+  }).join('');
+}
+
+function showDetail(tid){
+  var row=null;for(var i=0;i<allRows.length;i++){if(allRows[i][C.TID].toString()===tid){row=allRows[i];break;}}
+  if(!row)return;
+  document.getElementById('detailTitle').textContent='Ticket Details — '+tid;
+  var fields=[['Location',v(row[C.LOC])],['Faulty Component',v(row[C.COMP])],['Problem',v(row[C.PROB])],['SL Number',v(row[C.SL])],['Customer Contact',v(row[C.CPHONE])],['Engineer',v(row[C.ENG])],['Visit Date',v(row[C.VDATE])],['Visit Time',v(row[C.VTIME])],['Assets Checked',v(row[C.ASSETS])],['Issues Found',v(row[C.ISSUES])],['Closure Status',v(row[C.STATUS])],['Remarks',v(row[C.REMARKS])],['Follow-up Count',(row[C.FCOUNT]||0).toString()],['Rating',row[C.ORATING]?row[C.ORATING]+' / 5':'—'],['Booked On',fmtDate(row[C.BTIME])],['Days Open',daysOpen(row[C.BTIME])]];
+  document.getElementById('detailGrid').innerHTML=fields.map(function(f){return'<div><div class="df-label">'+f[0]+'</div><div class="df-val">'+f[1]+'</div></div>';}).join('');
+  var steps=[{lbl:'Complaint Booked',done:!!row[C.BTIME]},{lbl:'Engineer Assigned',done:!!row[C.ATIME]},{lbl:'Fault Attended',done:!!row[C.CLTIME]},{lbl:'Rating Submitted',done:!!row[C.RTIME]}];
+  var activeDone=false;
+  document.getElementById('detailTimeline').innerHTML=steps.map(function(s){
+    var cls='pending';if(s.done)cls='done';else if(!activeDone){cls='active';activeDone=true;}
+    var icon=cls==='done'?'&#10003;':cls==='active'?'&#9679;':'&#9675;';
+    return'<div class="tl-step '+cls+'"><div class="tl-circle">'+icon+'</div><div class="tl-label">'+s.lbl+'</div></div>';
+  }).join('');
+  var box=document.getElementById('detailBox');box.style.display='block';box.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function closeDetail(){document.getElementById('detailBox').style.display='none';}
+function clearFilters(){
+  document.getElementById('fSearch').value='';document.getElementById('fStage').value='';
+  document.getElementById('fComp').value='';document.getElementById('fLoc').value='';
+  closeDetail();renderTable(getPendingFiltered());
+}
+['fSearch','fStage','fComp','fLoc'].forEach(function(id){
+  document.getElementById(id).addEventListener('change',function(){closeDetail();renderTable(getPendingFiltered());});
+  document.getElementById(id).addEventListener('input',function(){closeDetail();renderTable(getPendingFiltered());});
+});
+
+function getMonthRows(){
+  var mo=parseInt(document.getElementById('rMonth').value),yr=parseInt(document.getElementById('rYear').value);
+  return allRows.filter(function(r){var d=new Date(r[C.BTIME]);return!isNaN(d)&&d.getMonth()===mo&&d.getFullYear()===yr;});
+}
+function updateReportPreview(){
+  var rows=getMonthRows(),mo=parseInt(document.getElementById('rMonth').value),yr=parseInt(document.getElementById('rYear').value);
+  document.getElementById('previewLabel').textContent=MONTHS[mo]+' '+yr;fillPreviewCells(rows,'r');
+}
+document.getElementById('rMonth').addEventListener('change',updateReportPreview);
+document.getElementById('rYear').addEventListener('change',updateReportPreview);
+
+function getQuarterRows(qNum,fyStartYear){
+  var months=QUARTERS[qNum].months,calYear=(qNum===4)?fyStartYear+1:fyStartYear;
+  return allRows.filter(function(r){var d=new Date(r[C.BTIME]);return!isNaN(d)&&months.indexOf(d.getMonth())>-1&&d.getFullYear()===calYear;});
+}
+function getFYStartYear(){return parseInt(document.getElementById('qYear').value);}
+function getQuarterLabel(qNum,fyStartYear){
+  var q=QUARTERS[qNum],calYear=(qNum===4)?fyStartYear+1:fyStartYear;
+  return q.label+' · '+q.name+' '+calYear+' — FY '+fyStartYear+'-'+String(fyStartYear+1).slice(2);
+}
+function selectQuarter(qNum){
+  selectedQuarter=qNum;
+  [1,2,3,4].forEach(function(q){document.getElementById('qcard-'+q).classList.toggle('selected',q===qNum);});
+  updateQuarterlyPreview();
+}
+function updateQuarterCards(){
+  var fy=getFYStartYear();
+  [1,2,3,4].forEach(function(q){document.getElementById('qcount-'+q).textContent=getQuarterRows(q,fy).length;});
+}
+function updateQuarterlyPreview(){
+  var fy=getFYStartYear(),rows=getQuarterRows(selectedQuarter,fy);
+  document.getElementById('qPreviewLabel').textContent=getQuarterLabel(selectedQuarter,fy);
+  fillPreviewCells(rows,'qr');
+}
+document.getElementById('qYear').addEventListener('change',function(){updateQuarterCards();updateQuarterlyPreview();});
+
+function fillPreviewCells(rows,prefix){
+  var total=rows.length,
+      rectified=rows.filter(function(r){return(r[C.STATUS]||'').toLowerCase().indexOf('rectified')>-1;}).length,
+      pending=rows.filter(function(r){return isPending(r);}).length,
+      followup=rows.filter(function(r){return stageKey(r)==='followup';}).length,
+      resPct=total?Math.round(rectified/total*100)+'%':'—',
+      ratings=rows.map(function(r){return parseFloat(r[C.ORATING]);}).filter(function(v){return!isNaN(v)&&v>0;}),
+      avgRating=ratings.length?(ratings.reduce(function(a,b){return a+b;},0)/ratings.length).toFixed(1):'—',
+      engs={};
+  rows.forEach(function(r){if(r[C.ENG])engs[r[C.ENG].toString().trim()]=1;});
+  document.getElementById(prefix+'Total').textContent=total||'—';
+  document.getElementById(prefix+'Rectified').textContent=rectified||'—';
+  document.getElementById(prefix+'Pending').textContent=pending||'—';
+  document.getElementById(prefix+'Followup').textContent=followup||'—';
+  document.getElementById(prefix+'TAT').textContent=avgTatStr(rows);
+  document.getElementById(prefix+'ResPct').textContent=resPct;
+  document.getElementById(prefix+'Rating').textContent=avgRating;
+  document.getElementById(prefix+'Engineers').textContent=Object.keys(engs).length||'—';
+}
+
+function buildReportWorkbook(rows,titleStr){
+  var wb=XLSX.utils.book_new();
+  var total=rows.length,
+      rectified=rows.filter(function(r){return(r[C.STATUS]||'').toLowerCase().indexOf('rectified')>-1;}).length,
+      pending=rows.filter(function(r){return isPending(r);}).length,
+      followup=rows.filter(function(r){return stageKey(r)==='followup';}).length,
+      resPct=total?Math.round(rectified/total*100)+'%':'0%',
+      ratings=rows.map(function(r){return parseFloat(r[C.ORATING]);}).filter(function(v){return!isNaN(v)&&v>0;}),
+      avgRating=ratings.length?(ratings.reduce(function(a,b){return a+b;},0)/ratings.length).toFixed(1)+' / 5':'No ratings',
+      engs={};
+  rows.forEach(function(r){if(r[C.ENG])engs[r[C.ENG].toString().trim()]=1;});
+  var summaryData=[['CMS CAMC SYSTEM — '+titleStr],['BSNL EB Trivandrum Business Area'],['Report Period: '+titleStr],['Generated On: '+new Date().toLocaleDateString('en-IN')],[],['SUMMARY'],['Metric','Value'],['Total Complaints Booked',total],['Total Rectified',rectified],['Total Pending',pending],['Total Follow-ups',followup],['Resolution Percentage',resPct],['Average TAT',avgTatStr(rows)],['Average Customer Rating',avgRating],['Engineers Deployed',Object.keys(engs).join(', ')||'—'],[],['COMPONENT-WISE BREAKDOWN'],['Component','Total Booked','Rectified','Pending']];
+  var compMap={};
+  rows.forEach(function(r){var c=(r[C.COMP]||'Unknown').toString().trim();if(!compMap[c])compMap[c]={total:0,rect:0,pend:0};compMap[c].total++;if((r[C.STATUS]||'').toLowerCase().indexOf('rectified')>-1)compMap[c].rect++;if(isPending(r))compMap[c].pend++;});
+  Object.keys(compMap).forEach(function(c){summaryData.push([c,compMap[c].total,compMap[c].rect,compMap[c].pend]);});
+  var ws1=XLSX.utils.aoa_to_sheet(summaryData);ws1['!cols']=[{wch:35},{wch:20},{wch:15},{wch:15}];XLSX.utils.book_append_sheet(wb,ws1,'Summary');
+  var headers2=['Ticket ID','Location','Component','Problem','SL Number','Customer Contact','Booked On','Engineer','Visit Date','Visit Time','Assets Checked','Issues Found','Remarks','Closure Status','Cleared On','TAT','Overall Rating','Fault Resolved','Feedback','Follow-up Count','Stage'];
+  var data2=[headers2].concat(rows.map(function(r){return[v(r[C.TID]),v(r[C.LOC]),v(r[C.COMP]),v(r[C.PROB]),v(r[C.SL]),v(r[C.CPHONE]),fmtDate(r[C.BTIME]),v(r[C.ENG]),fmtDate(r[C.VDATE]),v(r[C.VTIME]),v(r[C.ASSETS]),v(r[C.ISSUES]),v(r[C.REMARKS]),v(r[C.STATUS]),fmtDate(r[C.CCTIME]),v(r[C.TAT]),r[C.ORATING]?r[C.ORATING]+'/5':'—',v(r[C.FRESOLVED]),v(r[C.FEEDBACK]),r[C.FCOUNT]||0,v(r[C.STAGE])];}));
+  var ws2=XLSX.utils.aoa_to_sheet(data2);ws2['!cols']=[{wch:10},{wch:35},{wch:15},{wch:30},{wch:10},{wch:15},{wch:14},{wch:15},{wch:14},{wch:12},{wch:18},{wch:20},{wch:25},{wch:14},{wch:14},{wch:14},{wch:10},{wch:14},{wch:20},{wch:10},{wch:22}];XLSX.utils.book_append_sheet(wb,ws2,'All Complaints');
+  var headers3=['Ticket ID','Location','Component','Problem','SL Number','Booked On','Engineer','Stage','Follow-up Count','Days Open'];
+  var data3=[headers3].concat(rows.filter(isPending).map(function(r){return[v(r[C.TID]),v(r[C.LOC]),v(r[C.COMP]),v(r[C.PROB]),v(r[C.SL]),fmtDate(r[C.BTIME]),v(r[C.ENG]),v(r[C.STAGE]),r[C.FCOUNT]||0,daysOpen(r[C.BTIME])];}));
+  var ws3=XLSX.utils.aoa_to_sheet(data3);ws3['!cols']=[{wch:10},{wch:35},{wch:15},{wch:30},{wch:10},{wch:14},{wch:15},{wch:22},{wch:12},{wch:12}];XLSX.utils.book_append_sheet(wb,ws3,'Pending Cases');
+  return wb;
+}
+
+function downloadReport(){
+  var mo=parseInt(document.getElementById('rMonth').value),yr=parseInt(document.getElementById('rYear').value);
+  var wb=buildReportWorkbook(getMonthRows(),'Monthly Report — '+MONTHS[mo]+' '+yr);
+  XLSX.writeFile(wb,'BSNL_CMS_Monthly_'+MONTHS[mo]+'_'+yr+'.xlsx');
+}
+
+function downloadQuarterlyReport(){
+  var fy=getFYStartYear(),q=selectedQuarter,rows=getQuarterRows(q,fy),qDef=QUARTERS[q],calYear=(q===4)?fy+1:fy;
+  var titleStr=qDef.label+' ('+qDef.name+' '+calYear+') — FY '+fy+'-'+String(fy+1).slice(2);
+  var wb=buildReportWorkbook(rows,'Quarterly Report — '+titleStr);
+  var monthBreakdown=[['Month','Total Booked','Rectified','Pending','Follow-ups','Avg TAT','Resolution %']];
+  qDef.months.forEach(function(mo){
+    var mRows=rows.filter(function(r){var d=new Date(r[C.BTIME]);return!isNaN(d)&&d.getMonth()===mo;});
+    var tot=mRows.length,rect=mRows.filter(function(r){return(r[C.STATUS]||'').toLowerCase().indexOf('rectified')>-1;}).length,pend=mRows.filter(isPending).length,fu=mRows.filter(function(r){return stageKey(r)==='followup';}).length;
+    monthBreakdown.push([MONTHS[mo]+' '+calYear,tot,rect,pend,fu,avgTatStr(mRows),tot?Math.round(rect/tot*100)+'%':'—']);
+  });
+  var ws4=XLSX.utils.aoa_to_sheet(monthBreakdown);ws4['!cols']=[{wch:20},{wch:14},{wch:12},{wch:12},{wch:12},{wch:14},{wch:14}];XLSX.utils.book_append_sheet(wb,ws4,'Month-wise Breakup');
+  XLSX.writeFile(wb,'BSNL_CMS_Quarterly_'+qDef.label+'_FY'+fy+'-'+String(fy+1).slice(2)+'.xlsx');
+}
+
+load();
+setInterval(load,5*60*1000);
+</script>
+</body>
+</html>
