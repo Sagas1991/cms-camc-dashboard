@@ -16,7 +16,7 @@ body { font-family:Cambria,'Times New Roman',serif; background:#eef2f7; color:#1
   border-bottom:3px solid #e8a000;
   box-shadow:0 2px 6px rgba(0,0,0,0.15);
 }
-.header-title { font-family:Cambria,serif; font-size:16px; font-weight:bold; letter-spacing:0.2px; }
+.header-title { font-family:Cambria,serif; font-size:16px; font-weight:bold; }
 .header-title span { color:#fcd34d; }
 .header-right { display:flex; align-items:center; gap:16px; }
 .header-meta { font-family:Cambria,serif; font-size:12px; color:#93c5fd; }
@@ -30,17 +30,14 @@ body { font-family:Cambria,'Times New Roman',serif; background:#eef2f7; color:#1
 }
 .btn-book:hover { background:#d4930a; }
 
-.body { padding:20px 28px; max-width:1350px; margin:0 auto; }
+.body { padding:20px 28px; max-width:1400px; margin:0 auto; }
 
 /* STAT CARDS */
 .stats-row { display:grid; grid-template-columns:repeat(5,1fr); gap:12px; margin-bottom:20px; }
 .stat {
-  background:#fff; border-radius:4px;
-  padding:14px 16px;
+  background:#fff; border-radius:4px; padding:14px 16px;
   box-shadow:0 1px 4px rgba(0,0,0,0.08);
-  border-top:4px solid #90a4ae;
-  border:1px solid #e0e0e0;
-  border-top-width:4px;
+  border:1px solid #e0e0e0; border-top:4px solid #90a4ae;
 }
 .stat.s1 { border-top-color:#1565c0; }
 .stat.s2 { border-top-color:#e65100; }
@@ -57,7 +54,6 @@ body { font-family:Cambria,'Times New Roman',serif; background:#eef2f7; color:#1
   text-transform:uppercase; letter-spacing:0.7px; color:#1a3a5c;
   margin-bottom:10px; padding-bottom:6px;
   border-bottom:2px solid #1a3a5c;
-  display:flex; align-items:center; gap:8px;
 }
 
 /* CARD */
@@ -70,6 +66,15 @@ body { font-family:Cambria,'Times New Roman',serif; background:#eef2f7; color:#1
 .card-title { font-family:Cambria,serif; font-size:12px; font-weight:bold; text-transform:uppercase; letter-spacing:0.5px; color:#1a3a5c; }
 .card-count { font-family:Cambria,serif; font-size:12px; color:#aaa; }
 .card-note  { font-family:Cambria,serif; font-size:11px; color:#e65100; font-style:italic; }
+
+/* TOGGLE BUTTON */
+.btn-toggle {
+  font-family:Cambria,serif; font-size:12px; font-weight:bold;
+  background:#1a3a5c; color:#fff; border:none; border-radius:3px;
+  padding:4px 12px; cursor:pointer; height:26px; white-space:nowrap;
+}
+.btn-toggle:hover { background:#1e4976; }
+.btn-toggle.active { background:#e65100; }
 
 /* FILTER ROW */
 .filter-row {
@@ -87,7 +92,7 @@ body { font-family:Cambria,'Times New Roman',serif; background:#eef2f7; color:#1
 }
 .filter-row input  { width:175px; }
 .filter-row select { width:155px; }
-.filter-row input:focus, .filter-row select:focus { border-color:#1a3a5c; box-shadow:0 0 0 2px rgba(26,58,92,0.1); }
+.filter-row input:focus, .filter-row select:focus { border-color:#1a3a5c; }
 .btn-clear {
   font-family:Cambria,serif; font-size:12px; font-weight:bold;
   background:#1a3a5c; color:#fff; border:none; border-radius:3px;
@@ -114,6 +119,9 @@ tr:nth-child(even) td { background:#f8fafc; }
 tr:hover td { background:#e8f0f8 !important; cursor:pointer; }
 
 .tid { font-family:Cambria,serif; font-size:13px; font-weight:bold; color:#1a3a5c; }
+.eng-info { display:flex; flex-direction:column; gap:1px; }
+.eng-name { font-size:13px; color:#333; }
+.eng-contact { font-size:11px; color:#888; }
 
 /* BADGES */
 .badge {
@@ -150,7 +158,7 @@ tr:hover td { background:#e8f0f8 !important; cursor:pointer; }
   width:22px; height:22px; border-radius:50%; border:2px solid #dde3ea;
   background:#fff; margin:0 auto 5px;
   display:flex; align-items:center; justify-content:center;
-  font-size:11px; font-family:Cambria,serif; position:relative; z-index:1;
+  font-size:11px; position:relative; z-index:1;
 }
 .tl-step.done   .tl-circle { border-color:#2e7d32; background:#e8f5e9; color:#2e7d32; }
 .tl-step.active .tl-circle { border-color:#1a3a5c; background:#e3f2fd; color:#1a3a5c; }
@@ -180,12 +188,10 @@ tr:hover td { background:#e8f0f8 !important; cursor:pointer; }
   padding:5px 10px; color:#1a1a1a; background:#fff;
   outline:none; height:34px; min-width:135px;
 }
-.form-group select:focus { border-color:#1a3a5c; }
 .btn-download {
   font-family:Cambria,serif; font-size:13px; font-weight:bold;
   background:#2e7d32; color:#fff; border:none; border-radius:3px;
   padding:7px 20px; cursor:pointer; height:34px;
-  box-shadow:0 1px 3px rgba(0,0,0,0.15);
 }
 .btn-download:hover { background:#1b5e20; }
 .btn-download.quarterly { background:#1a3a5c; }
@@ -200,7 +206,6 @@ tr:hover td { background:#e8f0f8 !important; cursor:pointer; }
 .quarter-card {
   border:2px solid #dde3ea; border-radius:4px; padding:14px 16px;
   cursor:pointer; background:#fff; position:relative;
-  transition:all 0.15s;
 }
 .quarter-card:hover { border-color:#1a3a5c; background:#f0f4f8; }
 .quarter-card.selected { border-color:#e8a000; background:#fffbeb; }
@@ -247,6 +252,7 @@ tr:hover td { background:#e8f0f8 !important; cursor:pointer; }
 
 <div class="body">
 
+  <!-- STAT CARDS -->
   <div class="stats-row">
     <div class="stat s1">
       <div class="stat-label">Total Complaints</div>
@@ -275,12 +281,14 @@ tr:hover td { background:#e8f0f8 !important; cursor:pointer; }
     </div>
   </div>
 
-  <div class="section-label">&#9632; Pending Faults — Active Cases Only</div>
+  <!-- TABLE -->
+  <div class="section-label">&#9632; Complaint Register</div>
   <div class="card">
     <div class="card-header">
-      <div style="display:flex;align-items:center;gap:12px;">
-        <div class="card-title">Pending Complaint Register</div>
-        <div class="card-note">Completed cases excluded</div>
+      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+        <div class="card-title" id="tableTitle">Pending Complaint Register</div>
+        <div class="card-note" id="tableNote">Completed cases excluded</div>
+        <button class="btn-toggle" id="toggleBtn" onclick="toggleView()">Show All Complaints</button>
       </div>
       <div class="card-count" id="tableCount">0 records</div>
     </div>
@@ -289,10 +297,11 @@ tr:hover td { background:#e8f0f8 !important; cursor:pointer; }
       <input type="text" id="fSearch" placeholder="Ticket ID / Location..." />
       <label>Stage:</label>
       <select id="fStage">
-        <option value="">All Pending Stages</option>
+        <option value="">All Stages</option>
         <option value="booked">Complaint Booked</option>
         <option value="assigned">Engineer Assigned</option>
         <option value="followup">Follow-up Required</option>
+        <option value="completed">Completed</option>
       </select>
       <label>Component:</label>
       <select id="fComp"><option value="">All Components</option></select>
@@ -305,8 +314,9 @@ tr:hover td { background:#e8f0f8 !important; cursor:pointer; }
         <thead>
           <tr>
             <th>Ticket ID</th><th>Location</th><th>Component</th>
-            <th>Problem</th><th>Booked On</th><th>Engineer</th>
-            <th>Stage</th><th>Follow-ups</th><th>Days Open</th>
+            <th>Problem</th><th>Booked On</th>
+            <th>Engineer</th><th>Stage</th>
+            <th>Follow-ups</th><th>Days Open</th>
           </tr>
         </thead>
         <tbody id="tableBody">
@@ -323,6 +333,7 @@ tr:hover td { background:#e8f0f8 !important; cursor:pointer; }
     </div>
   </div>
 
+  <!-- REPORTS -->
   <div class="section-label">&#9632; Reports — Monthly &amp; Quarterly Download</div>
   <div class="report-card">
     <div class="report-tabs">
@@ -409,10 +420,20 @@ tr:hover td { background:#e8f0f8 !important; cursor:pointer; }
 <script>
 var SHEET_ID='1nQ8RR9uk3q_uX6V3MQ91qzIV2xIGybocA1RlfYcSPvk';
 var API='https://docs.google.com/spreadsheets/d/'+SHEET_ID+'/gviz/tq?tqx=out:json&sheet=MASTER';
-var C={TID:0,BTIME:1,LOC:2,COMP:3,PROB:4,SL:5,CPHONE:6,CEMAIL:7,ATIME:8,ENG:9,VDATE:10,VTIME:11,CLTIME:12,ASSETS:13,ISSUES:14,REMARKS:15,STATUS:16,RTIME:17,ORATING:18,RRATING:19,EBEHAV:20,FRESOLVED:21,FEEDBACK:22,STAGE:23,CCTIME:24,TAT:25,FCOUNT:26};
+
+// Column indexes — updated to match v8 script (Engineer Contact = col 13 = index 12)
+var C={
+  TID:0,BTIME:1,LOC:2,COMP:3,PROB:4,SL:5,CPHONE:6,CEMAIL:7,
+  ATIME:8,ENG:9,VDATE:10,VTIME:11,
+  ENG_CONTACT:12,                    // NEW col M
+  CLTIME:13,ASSETS:14,ISSUES:15,REMARKS:16,STATUS:17,
+  RTIME:18,ORATING:19,RRATING:20,EBEHAV:21,FRESOLVED:22,FEEDBACK:23,
+  STAGE:24,CCTIME:25,TAT:26,FCOUNT:27
+};
+
 var MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
 var QUARTERS={1:{label:'Q1',months:[3,4,5],name:'April – June'},2:{label:'Q2',months:[6,7,8],name:'July – September'},3:{label:'Q3',months:[9,10,11],name:'October – December'},4:{label:'Q4',months:[0,1,2],name:'January – March'}};
-var allRows=[],selectedQuarter=1;
+var allRows=[],selectedQuarter=1,showAll=false;
 
 (function(){
   var sel=document.getElementById('rYear'),qSel=document.getElementById('qYear'),yr=new Date().getFullYear();
@@ -431,6 +452,7 @@ function switchTab(tab){
   document.getElementById('quarterlyPanel').classList.toggle('active',tab==='quarterly');
   if(tab==='quarterly')updateQuarterlyPreview();
 }
+
 function stageKey(row){
   var s=(row[C.STAGE]||'').toLowerCase();
   if(s.indexOf('completed')>-1)return'completed';
@@ -440,20 +462,20 @@ function stageKey(row){
   return'booked';
 }
 function isPending(row){var k=stageKey(row);return k==='booked'||k==='assigned'||k==='followup';}
+function isRectified(row){
+  var s=(row[C.STATUS]||'').toString().toLowerCase();
+  var st=(row[C.STAGE]||'').toString().toLowerCase();
+  return s.indexOf('rectified')>-1||s.indexOf('routine')>-1||st.indexOf('completed')>-1;
+}
 function stageBadge(k){
   var m={booked:['badge-booked','Complaint Booked'],assigned:['badge-assigned','Engineer Assigned'],followup:['badge-followup','Follow-up Required'],cleared:['badge-cleared','Cleared'],completed:['badge-completed','Completed']};
   var p=m[k]||['badge-booked',k];return'<span class="badge '+p[0]+'">'+p[1]+'</span>';
 }
 function v(x){return x?x.toString().trim():'—';}
 function fmtDate(raw){
-  if(!raw)return'—';
-  var s=raw.toString();
-  if(s.indexOf('Date(')===0){
-    var pts=s.replace('Date(','').replace(')','').split(',');
-    if(pts.length>=3){var d=new Date(parseInt(pts[0]),parseInt(pts[1]),parseInt(pts[2]));return d.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'});}
-  }
-  var d=new Date(s);
-  if(isNaN(d))return s.substring(0,10);
+  if(!raw)return'—';var s=raw.toString();
+  if(s.indexOf('Date(')===0){var pts=s.replace('Date(','').replace(')','').split(',');if(pts.length>=3){var d=new Date(parseInt(pts[0]),parseInt(pts[1]),parseInt(pts[2]));return d.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'});}}
+  var d=new Date(s);if(isNaN(d))return s.substring(0,10);
   return d.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'});
 }
 function daysOpen(bt){
@@ -475,6 +497,7 @@ function avgTatStr(rows){
   var avg=Math.round(vals.reduce(function(a,b){return a+b;},0)/vals.length);
   return Math.floor(avg/60)+'h '+String(avg%60).padStart(2,'0')+'m';
 }
+
 function load(){
   fetch(API)
     .then(function(r){return r.text();})
@@ -491,19 +514,65 @@ function load(){
       document.getElementById('tableBody').innerHTML='<tr><td colspan="9" class="no-data">Could not load data. Open via GitHub Pages, not from local file.</td></tr>';
     });
 }
-function init(){populateFilters();renderStats();renderTable(getPendingFiltered());updateReportPreview();updateQuarterCards();}
-function populateFilters(){
-  var pending=allRows.filter(isPending),comps={},locs={};
-  pending.forEach(function(r){if(r[C.COMP])comps[r[C.COMP].toString().trim()]=1;if(r[C.LOC])locs[r[C.LOC].toString().trim()]=1;});
-  var cSel=document.getElementById('fComp');cSel.innerHTML='<option value="">All Components</option>';
-  Object.keys(comps).sort().forEach(function(c){var o=document.createElement('option');o.value=c;o.textContent=c;cSel.appendChild(o);});
-  var lSel=document.getElementById('fLoc');lSel.innerHTML='<option value="">All Locations</option>';
-  Object.keys(locs).sort().forEach(function(l){var o=document.createElement('option');o.value=l;o.textContent=l.length>40?l.slice(0,40)+'…':l;lSel.appendChild(o);});
+
+function init(){populateFilters();renderStats();renderTable(getFiltered());updateReportPreview();updateQuarterCards();}
+
+// TOGGLE VIEW
+function toggleView(){
+  showAll=!showAll;
+  var btn=document.getElementById('toggleBtn');
+  var title=document.getElementById('tableTitle');
+  var note=document.getElementById('tableNote');
+  if(showAll){
+    btn.textContent='Show Pending Only';
+    btn.classList.add('active');
+    title.textContent='All Complaints Register';
+    note.textContent='Showing all complaints including completed';
+    // Update stage filter to include completed
+    var stageEl=document.getElementById('fStage');
+    stageEl.innerHTML='<option value="">All Stages</option>'+
+      '<option value="booked">Complaint Booked</option>'+
+      '<option value="assigned">Engineer Assigned</option>'+
+      '<option value="followup">Follow-up Required</option>'+
+      '<option value="completed">Completed</option>';
+  } else {
+    btn.textContent='Show All Complaints';
+    btn.classList.remove('active');
+    title.textContent='Pending Complaint Register';
+    note.textContent='Completed cases excluded';
+    var stageEl=document.getElementById('fStage');
+    stageEl.innerHTML='<option value="">All Pending Stages</option>'+
+      '<option value="booked">Complaint Booked</option>'+
+      '<option value="assigned">Engineer Assigned</option>'+
+      '<option value="followup">Follow-up Required</option>';
+    // Reset stage filter if completed was selected
+    if(stageEl.value==='completed')stageEl.value='';
+  }
+  populateFilters();
+  closeDetail();
+  renderTable(getFiltered());
 }
+
+function populateFilters(){
+  var base=showAll?allRows:allRows.filter(isPending);
+  var comps={},locs={};
+  base.forEach(function(r){if(r[C.COMP])comps[r[C.COMP].toString().trim()]=1;if(r[C.LOC])locs[r[C.LOC].toString().trim()]=1;});
+  var cSel=document.getElementById('fComp');var cVal=cSel.value;
+  cSel.innerHTML='<option value="">All Components</option>';
+  Object.keys(comps).sort().forEach(function(c){var o=document.createElement('option');o.value=c;o.textContent=c;cSel.appendChild(o);});
+  if(cVal)cSel.value=cVal;
+  var lSel=document.getElementById('fLoc');var lVal=lSel.value;
+  lSel.innerHTML='<option value="">All Locations</option>';
+  Object.keys(locs).sort().forEach(function(l){var o=document.createElement('option');o.value=l;o.textContent=l.length>40?l.slice(0,40)+'…':l;lSel.appendChild(o);});
+  if(lVal)lSel.value=lVal;
+}
+
 function renderStats(){
-  var total=allRows.length,pending=allRows.filter(function(r){return isPending(r);}).length,
-      followup=allRows.filter(function(r){return stageKey(r)==='followup';}).length,
-      rectified=allRows.filter(function(r){return(r[C.STATUS]||'').toString().toLowerCase().indexOf('rectified')>-1;}).length;
+  var total=allRows.length;
+  var pending=allRows.filter(function(r){return isPending(r);}).length;
+  var followup=allRows.filter(function(r){return stageKey(r)==='followup';}).length;
+  // Fixed: count rectified correctly including completed stages
+  var rectified=allRows.filter(function(r){return isRectified(r);}).length;
   document.getElementById('sTotal').textContent=total;
   document.getElementById('sPending').textContent=pending;
   document.getElementById('sFollowup').textContent=followup;
@@ -511,10 +580,14 @@ function renderStats(){
   document.getElementById('sRectPct').textContent=total?Math.round(rectified/total*100)+'% resolution':'0%';
   document.getElementById('sTAT').textContent=avgTatStr(allRows);
 }
-function getPendingFiltered(){
-  var q=document.getElementById('fSearch').value.trim().toLowerCase(),stage=document.getElementById('fStage').value,comp=document.getElementById('fComp').value,loc=document.getElementById('fLoc').value;
+
+function getFiltered(){
+  var q=document.getElementById('fSearch').value.trim().toLowerCase();
+  var stage=document.getElementById('fStage').value;
+  var comp=document.getElementById('fComp').value;
+  var loc=document.getElementById('fLoc').value;
   return allRows.filter(function(r){
-    if(!isPending(r))return false;
+    if(!showAll&&!isPending(r))return false;
     if(q&&(r[C.TID]||'').toString().toLowerCase().indexOf(q)<0&&(r[C.LOC]||'').toString().toLowerCase().indexOf(q)<0&&(r[C.PROB]||'').toString().toLowerCase().indexOf(q)<0)return false;
     if(stage&&stageKey(r)!==stage)return false;
     if(comp&&(r[C.COMP]||'').toString().trim()!==comp)return false;
@@ -522,32 +595,50 @@ function getPendingFiltered(){
     return true;
   });
 }
+
 function renderTable(rows){
   document.getElementById('tableCount').textContent=rows.length+' record'+(rows.length===1?'':'s');
   var tbody=document.getElementById('tableBody');
-  if(!rows.length){tbody.innerHTML='<tr><td colspan="9" class="no-data">No pending complaints. All cases are resolved.</td></tr>';return;}
+  if(!rows.length){tbody.innerHTML='<tr><td colspan="9" class="no-data">'+(showAll?'No complaints found.':'No pending complaints. All cases are resolved.')+'</td></tr>';return;}
   tbody.innerHTML=rows.map(function(r){
     var prob=(r[C.PROB]||'').toString();if(prob.length>35)prob=prob.slice(0,35)+'…';
     var fc=parseInt(r[C.FCOUNT])||0;
     var fcStr=fc>0?'<span style="color:#b71c1c;font-weight:bold">'+fc+'</span>':'<span style="color:#ccc">0</span>';
+    // Engineer + contact combined
+    var engName=r[C.ENG]||'';
+    var engContact=r[C.ENG_CONTACT]||'';
+    var engCell=engName
+      ?'<div class="eng-info"><div class="eng-name">'+engName+'</div>'+(engContact?'<div class="eng-contact">'+engContact+'</div>':'')+'</div>'
+      :'<span style="color:#ccc">Not assigned</span>';
     return'<tr onclick="showDetail(\''+r[C.TID]+'\')">'+
       '<td><span class="tid">'+v(r[C.TID])+'</span></td>'+
-      '<td style="max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="'+(r[C.LOC]||'')+'">'+v(r[C.LOC])+'</td>'+
+      '<td style="max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="'+(r[C.LOC]||'')+'">'+v(r[C.LOC])+'</td>'+
       '<td>'+v(r[C.COMP])+'</td>'+
-      '<td style="max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="'+(r[C.PROB]||'')+'">'+prob+'</td>'+
+      '<td style="max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="'+(r[C.PROB]||'')+'">'+prob+'</td>'+
       '<td style="white-space:nowrap">'+fmtDate(r[C.BTIME])+'</td>'+
-      '<td>'+(r[C.ENG]||'<span style="color:#ccc">Not assigned</span>')+'</td>'+
+      '<td>'+engCell+'</td>'+
       '<td>'+stageBadge(stageKey(r))+'</td>'+
       '<td style="text-align:center">'+fcStr+'</td>'+
       '<td style="white-space:nowrap">'+daysOpen(r[C.BTIME])+'</td>'+
     '</tr>';
   }).join('');
 }
+
 function showDetail(tid){
   var row=null;for(var i=0;i<allRows.length;i++){if(allRows[i][C.TID].toString()===tid){row=allRows[i];break;}}
   if(!row)return;
   document.getElementById('detailTitle').textContent='Ticket Details — '+tid;
-  var fields=[['Location',v(row[C.LOC])],['Faulty Component',v(row[C.COMP])],['Problem',v(row[C.PROB])],['SL Number',v(row[C.SL])],['Customer Contact',v(row[C.CPHONE])],['Engineer',v(row[C.ENG])],['Visit Date',fmtDate(row[C.VDATE])],['Visit Time',v(row[C.VTIME])],['Assets Checked',v(row[C.ASSETS])],['Issues Found',v(row[C.ISSUES])],['Closure Status',v(row[C.STATUS])],['Remarks',v(row[C.REMARKS])],['Follow-up Count',(row[C.FCOUNT]||0).toString()],['Rating',row[C.ORATING]?row[C.ORATING]+' / 5':'—'],['Booked On',fmtDate(row[C.BTIME])],['Days Open',daysOpen(row[C.BTIME])]];
+  var fields=[
+    ['Location',v(row[C.LOC])],['Faulty Component',v(row[C.COMP])],
+    ['Problem',v(row[C.PROB])],['SL Number',v(row[C.SL])],
+    ['Engineer',v(row[C.ENG])],['Engineer Contact',v(row[C.ENG_CONTACT])],
+    ['Visit Date',fmtDate(row[C.VDATE])],['Visit Time',v(row[C.VTIME])],
+    ['Assets Checked',v(row[C.ASSETS])],['Issues Found',v(row[C.ISSUES])],
+    ['Closure Status',v(row[C.STATUS])],['Remarks',v(row[C.REMARKS])],
+    ['Follow-up Count',(row[C.FCOUNT]||0).toString()],
+    ['Rating',row[C.ORATING]?row[C.ORATING]+' / 5':'—'],
+    ['Booked On',fmtDate(row[C.BTIME])],['Days Open',daysOpen(row[C.BTIME])]
+  ];
   document.getElementById('detailGrid').innerHTML=fields.map(function(f){return'<div><div class="df-label">'+f[0]+'</div><div class="df-val">'+f[1]+'</div></div>';}).join('');
   var steps=[{lbl:'Complaint Booked',done:!!row[C.BTIME]},{lbl:'Engineer Assigned',done:!!row[C.ATIME]},{lbl:'Fault Attended',done:!!row[C.CLTIME]},{lbl:'Rating Submitted',done:!!row[C.RTIME]}];
   var activeDone=false;
@@ -562,12 +653,13 @@ function closeDetail(){document.getElementById('detailBox').style.display='none'
 function clearFilters(){
   document.getElementById('fSearch').value='';document.getElementById('fStage').value='';
   document.getElementById('fComp').value='';document.getElementById('fLoc').value='';
-  closeDetail();renderTable(getPendingFiltered());
+  closeDetail();renderTable(getFiltered());
 }
 ['fSearch','fStage','fComp','fLoc'].forEach(function(id){
-  document.getElementById(id).addEventListener('change',function(){closeDetail();renderTable(getPendingFiltered());});
-  document.getElementById(id).addEventListener('input',function(){closeDetail();renderTable(getPendingFiltered());});
+  document.getElementById(id).addEventListener('change',function(){closeDetail();renderTable(getFiltered());});
+  document.getElementById(id).addEventListener('input',function(){closeDetail();renderTable(getFiltered());});
 });
+
 function getMonthRows(){
   var mo=parseInt(document.getElementById('rMonth').value),yr=parseInt(document.getElementById('rYear').value);
   return allRows.filter(function(r){var d=new Date(r[C.BTIME]);return!isNaN(d)&&d.getMonth()===mo&&d.getFullYear()===yr;});
@@ -578,6 +670,7 @@ function updateReportPreview(){
 }
 document.getElementById('rMonth').addEventListener('change',updateReportPreview);
 document.getElementById('rYear').addEventListener('change',updateReportPreview);
+
 function getQuarterRows(qNum,fyStartYear){
   var months=QUARTERS[qNum].months,calYear=(qNum===4)?fyStartYear+1:fyStartYear;
   return allRows.filter(function(r){var d=new Date(r[C.BTIME]);return!isNaN(d)&&months.indexOf(d.getMonth())>-1&&d.getFullYear()===calYear;});
@@ -588,25 +681,47 @@ function selectQuarter(qNum){selectedQuarter=qNum;[1,2,3,4].forEach(function(q){
 function updateQuarterCards(){var fy=getFYStartYear();[1,2,3,4].forEach(function(q){document.getElementById('qcount-'+q).textContent=getQuarterRows(q,fy).length;});}
 function updateQuarterlyPreview(){var fy=getFYStartYear(),rows=getQuarterRows(selectedQuarter,fy);document.getElementById('qPreviewLabel').textContent=getQuarterLabel(selectedQuarter,fy);fillPreviewCells(rows,'qr');}
 document.getElementById('qYear').addEventListener('change',function(){updateQuarterCards();updateQuarterlyPreview();});
+
 function fillPreviewCells(rows,prefix){
-  var total=rows.length,rectified=rows.filter(function(r){return(r[C.STATUS]||'').toString().toLowerCase().indexOf('rectified')>-1;}).length,pending=rows.filter(function(r){return isPending(r);}).length,followup=rows.filter(function(r){return stageKey(r)==='followup';}).length,resPct=total?Math.round(rectified/total*100)+'%':'—',ratings=rows.map(function(r){return parseFloat(r[C.ORATING]);}).filter(function(v){return!isNaN(v)&&v>0;}),avgRating=ratings.length?(ratings.reduce(function(a,b){return a+b;},0)/ratings.length).toFixed(1):'—',engs={};
-  rows.forEach(function(r){if(r[C.ENG])engs[r[C.ENG].toString().trim()]=1;});
-  document.getElementById(prefix+'Total').textContent=total||'—';document.getElementById(prefix+'Rectified').textContent=rectified||'—';document.getElementById(prefix+'Pending').textContent=pending||'—';document.getElementById(prefix+'Followup').textContent=followup||'—';document.getElementById(prefix+'TAT').textContent=avgTatStr(rows);document.getElementById(prefix+'ResPct').textContent=resPct;document.getElementById(prefix+'Rating').textContent=avgRating;document.getElementById(prefix+'Engineers').textContent=Object.keys(engs).length||'—';
+  var total=rows.length;
+  // Fixed: count rectified correctly
+  var rectified=rows.filter(function(r){return isRectified(r);}).length;
+  var pending=rows.filter(function(r){return isPending(r);}).length;
+  var followup=rows.filter(function(r){return stageKey(r)==='followup';}).length;
+  var resPct=total?Math.round(rectified/total*100)+'%':'—';
+  var ratings=rows.map(function(r){return parseFloat(r[C.ORATING]);}).filter(function(v){return!isNaN(v)&&v>0;});
+  var avgRating=ratings.length?(ratings.reduce(function(a,b){return a+b;},0)/ratings.length).toFixed(1):'—';
+  var engs={};rows.forEach(function(r){if(r[C.ENG])engs[r[C.ENG].toString().trim()]=1;});
+  document.getElementById(prefix+'Total').textContent=total||'—';
+  document.getElementById(prefix+'Rectified').textContent=rectified||'—';
+  document.getElementById(prefix+'Pending').textContent=pending||'—';
+  document.getElementById(prefix+'Followup').textContent=followup||'—';
+  document.getElementById(prefix+'TAT').textContent=avgTatStr(rows);
+  document.getElementById(prefix+'ResPct').textContent=resPct;
+  document.getElementById(prefix+'Rating').textContent=avgRating;
+  document.getElementById(prefix+'Engineers').textContent=Object.keys(engs).length||'—';
 }
+
 function buildReportWorkbook(rows,titleStr){
   var wb=XLSX.utils.book_new();
-  var total=rows.length,rectified=rows.filter(function(r){return(r[C.STATUS]||'').toString().toLowerCase().indexOf('rectified')>-1;}).length,pending=rows.filter(function(r){return isPending(r);}).length,followup=rows.filter(function(r){return stageKey(r)==='followup';}).length,resPct=total?Math.round(rectified/total*100)+'%':'0%',ratings=rows.map(function(r){return parseFloat(r[C.ORATING]);}).filter(function(v){return!isNaN(v)&&v>0;}),avgRating=ratings.length?(ratings.reduce(function(a,b){return a+b;},0)/ratings.length).toFixed(1)+' / 5':'No ratings',engs={};
+  var total=rows.length,rectified=rows.filter(function(r){return isRectified(r);}).length,
+      pending=rows.filter(function(r){return isPending(r);}).length,
+      followup=rows.filter(function(r){return stageKey(r)==='followup';}).length,
+      resPct=total?Math.round(rectified/total*100)+'%':'0%',
+      ratings=rows.map(function(r){return parseFloat(r[C.ORATING]);}).filter(function(v){return!isNaN(v)&&v>0;}),
+      avgRating=ratings.length?(ratings.reduce(function(a,b){return a+b;},0)/ratings.length).toFixed(1)+' / 5':'No ratings',
+      engs={};
   rows.forEach(function(r){if(r[C.ENG])engs[r[C.ENG].toString().trim()]=1;});
   var sd=[['CMS CAMC SYSTEM — '+titleStr],['BSNL EB Trivandrum Business Area'],['Report Period: '+titleStr],['Generated On: '+new Date().toLocaleDateString('en-IN')],[],['SUMMARY'],['Metric','Value'],['Total Complaints Booked',total],['Total Rectified',rectified],['Total Pending',pending],['Total Follow-ups',followup],['Resolution Percentage',resPct],['Average TAT',avgTatStr(rows)],['Average Customer Rating',avgRating],['Engineers Deployed',Object.keys(engs).join(', ')||'—'],[],['COMPONENT-WISE BREAKDOWN'],['Component','Total Booked','Rectified','Pending']];
-  var cm={};rows.forEach(function(r){var c=(r[C.COMP]||'Unknown').toString().trim();if(!cm[c])cm[c]={total:0,rect:0,pend:0};cm[c].total++;if((r[C.STATUS]||'').toString().toLowerCase().indexOf('rectified')>-1)cm[c].rect++;if(isPending(r))cm[c].pend++;});
+  var cm={};rows.forEach(function(r){var c=(r[C.COMP]||'Unknown').toString().trim();if(!cm[c])cm[c]={total:0,rect:0,pend:0};cm[c].total++;if(isRectified(r))cm[c].rect++;if(isPending(r))cm[c].pend++;});
   Object.keys(cm).forEach(function(c){sd.push([c,cm[c].total,cm[c].rect,cm[c].pend]);});
   var ws1=XLSX.utils.aoa_to_sheet(sd);ws1['!cols']=[{wch:35},{wch:20},{wch:15},{wch:15}];XLSX.utils.book_append_sheet(wb,ws1,'Summary');
-  var h2=['Ticket ID','Location','Component','Problem','SL Number','Customer Contact','Booked On','Engineer','Visit Date','Visit Time','Assets Checked','Issues Found','Remarks','Closure Status','Cleared On','TAT','Overall Rating','Fault Resolved','Feedback','Follow-up Count','Stage'];
-  var d2=[h2].concat(rows.map(function(r){return[v(r[C.TID]),v(r[C.LOC]),v(r[C.COMP]),v(r[C.PROB]),v(r[C.SL]),v(r[C.CPHONE]),fmtDate(r[C.BTIME]),v(r[C.ENG]),fmtDate(r[C.VDATE]),v(r[C.VTIME]),v(r[C.ASSETS]),v(r[C.ISSUES]),v(r[C.REMARKS]),v(r[C.STATUS]),fmtDate(r[C.CCTIME]),v(r[C.TAT]),r[C.ORATING]?r[C.ORATING]+'/5':'—',v(r[C.FRESOLVED]),v(r[C.FEEDBACK]),r[C.FCOUNT]||0,v(r[C.STAGE])];}));
-  var ws2=XLSX.utils.aoa_to_sheet(d2);ws2['!cols']=[{wch:10},{wch:35},{wch:15},{wch:30},{wch:10},{wch:15},{wch:14},{wch:15},{wch:14},{wch:12},{wch:18},{wch:20},{wch:25},{wch:14},{wch:14},{wch:14},{wch:10},{wch:14},{wch:20},{wch:10},{wch:22}];XLSX.utils.book_append_sheet(wb,ws2,'All Complaints');
-  var h3=['Ticket ID','Location','Component','Problem','SL Number','Booked On','Engineer','Stage','Follow-up Count','Days Open'];
-  var d3=[h3].concat(rows.filter(isPending).map(function(r){return[v(r[C.TID]),v(r[C.LOC]),v(r[C.COMP]),v(r[C.PROB]),v(r[C.SL]),fmtDate(r[C.BTIME]),v(r[C.ENG]),v(r[C.STAGE]),r[C.FCOUNT]||0,daysOpen(r[C.BTIME])];}));
-  var ws3=XLSX.utils.aoa_to_sheet(d3);ws3['!cols']=[{wch:10},{wch:35},{wch:15},{wch:30},{wch:10},{wch:14},{wch:15},{wch:22},{wch:12},{wch:12}];XLSX.utils.book_append_sheet(wb,ws3,'Pending Cases');
+  var h2=['Ticket ID','Location','Component','Problem','SL Number','Customer Contact','Booked On','Engineer','Engineer Contact','Visit Date','Visit Time','Assets Checked','Issues Found','Remarks','Closure Status','Cleared On','TAT','Overall Rating','Fault Resolved','Feedback','Follow-up Count','Stage'];
+  var d2=[h2].concat(rows.map(function(r){return[v(r[C.TID]),v(r[C.LOC]),v(r[C.COMP]),v(r[C.PROB]),v(r[C.SL]),v(r[C.CPHONE]),fmtDate(r[C.BTIME]),v(r[C.ENG]),v(r[C.ENG_CONTACT]),fmtDate(r[C.VDATE]),v(r[C.VTIME]),v(r[C.ASSETS]),v(r[C.ISSUES]),v(r[C.REMARKS]),v(r[C.STATUS]),fmtDate(r[C.CCTIME]),v(r[C.TAT]),r[C.ORATING]?r[C.ORATING]+'/5':'—',v(r[C.FRESOLVED]),v(r[C.FEEDBACK]),r[C.FCOUNT]||0,v(r[C.STAGE])];}));
+  var ws2=XLSX.utils.aoa_to_sheet(d2);ws2['!cols']=[{wch:10},{wch:35},{wch:15},{wch:30},{wch:10},{wch:15},{wch:14},{wch:15},{wch:15},{wch:14},{wch:12},{wch:18},{wch:20},{wch:25},{wch:14},{wch:14},{wch:14},{wch:10},{wch:14},{wch:20},{wch:10},{wch:22}];XLSX.utils.book_append_sheet(wb,ws2,'All Complaints');
+  var h3=['Ticket ID','Location','Component','Problem','SL Number','Booked On','Engineer','Engineer Contact','Stage','Follow-up Count','Days Open'];
+  var d3=[h3].concat(rows.filter(isPending).map(function(r){return[v(r[C.TID]),v(r[C.LOC]),v(r[C.COMP]),v(r[C.PROB]),v(r[C.SL]),fmtDate(r[C.BTIME]),v(r[C.ENG]),v(r[C.ENG_CONTACT]),v(r[C.STAGE]),r[C.FCOUNT]||0,daysOpen(r[C.BTIME])];}));
+  var ws3=XLSX.utils.aoa_to_sheet(d3);ws3['!cols']=[{wch:10},{wch:35},{wch:15},{wch:30},{wch:10},{wch:14},{wch:15},{wch:15},{wch:22},{wch:12},{wch:12}];XLSX.utils.book_append_sheet(wb,ws3,'Pending Cases');
   return wb;
 }
 function downloadReport(){var mo=parseInt(document.getElementById('rMonth').value),yr=parseInt(document.getElementById('rYear').value);var wb=buildReportWorkbook(getMonthRows(),'Monthly Report — '+MONTHS[mo]+' '+yr);XLSX.writeFile(wb,'BSNL_CMS_Monthly_'+MONTHS[mo]+'_'+yr+'.xlsx');}
@@ -615,7 +730,7 @@ function downloadQuarterlyReport(){
   var titleStr=qDef.label+' ('+qDef.name+' '+calYear+') — FY '+fy+'-'+String(fy+1).slice(2);
   var wb=buildReportWorkbook(rows,'Quarterly Report — '+titleStr);
   var mb=[['Month','Total Booked','Rectified','Pending','Follow-ups','Avg TAT','Resolution %']];
-  qDef.months.forEach(function(mo){var mRows=rows.filter(function(r){var d=new Date(r[C.BTIME]);return!isNaN(d)&&d.getMonth()===mo;});var tot=mRows.length,rect=mRows.filter(function(r){return(r[C.STATUS]||'').toString().toLowerCase().indexOf('rectified')>-1;}).length,pend=mRows.filter(isPending).length,fu=mRows.filter(function(r){return stageKey(r)==='followup';}).length;mb.push([MONTHS[mo]+' '+calYear,tot,rect,pend,fu,avgTatStr(mRows),tot?Math.round(rect/tot*100)+'%':'—']);});
+  qDef.months.forEach(function(mo){var mRows=rows.filter(function(r){var d=new Date(r[C.BTIME]);return!isNaN(d)&&d.getMonth()===mo;});var tot=mRows.length,rect=mRows.filter(function(r){return isRectified(r);}).length,pend=mRows.filter(isPending).length,fu=mRows.filter(function(r){return stageKey(r)==='followup';}).length;mb.push([MONTHS[mo]+' '+calYear,tot,rect,pend,fu,avgTatStr(mRows),tot?Math.round(rect/tot*100)+'%':'—']);});
   var ws4=XLSX.utils.aoa_to_sheet(mb);ws4['!cols']=[{wch:20},{wch:14},{wch:12},{wch:12},{wch:12},{wch:14},{wch:14}];XLSX.utils.book_append_sheet(wb,ws4,'Month-wise Breakup');
   XLSX.writeFile(wb,'BSNL_CMS_Quarterly_'+qDef.label+'_FY'+fy+'-'+String(fy+1).slice(2)+'.xlsx');
 }
