@@ -503,7 +503,7 @@ function load(){
     .then(function(r){return r.text();})
     .then(function(t){
       var j=JSON.parse(t.replace('/*O_o*/\ngoogle.visualization.Query.setResponse(','').replace(');',''));
-      allRows=(j.table.rows||[]).slice(1)
+      allRows=(j.table.rows||[]).slice(0)
         .map(function(r){return r.c.map(function(c){if(!c)return'';if(c.f)return c.f;return(c.v!==null&&c.v!==undefined)?c.v:'';});})
         .filter(function(r){var t=r[C.TID]?r[C.TID].toString().trim():'';return t&&t!=='Ticket ID';});
       init();
